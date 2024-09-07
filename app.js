@@ -1,44 +1,47 @@
-//Função chamada ao clicar no botão PESQUISAR / mostrará resultado baseado no valor do campo de pesquisa
-function pesquisar(){
+// Função chamada ao clicar no botão PESQUISAR / mostrará resultado baseado no valor do campo de pesquisa
+function pesquisar() {
+  // Obtém a seção onde os resultados serão exibidos
   let section = document.getElementById("resultados-pesquisa");
 
-  let campoPesquisa = document.getElementById("campo-pesquisa").value;
+  // Obtém o valor digitado no campo de pesquisa e converte para minúsculas
+  let campoPesquisa = document.getElementById("campo-Pesquisa").value.toLowerCase();
 
-  console.log(campoPesquisa);
-
-  //Verificando se o campo de pesquisa está vazio
-  if(!campoPesquisa){
-    section.innerHTML = "<p>Nada foi encontrado na base de dados. Digite a sua busca pelo atleta ou esporte.</p>"
-    return;
+  // Verifica se o campo de pesquisa está vazio
+  if (!campoPesquisa) {
+    // Se estiver vazio, exibe uma mensagem de erro na seção de resultados
+    section.innerHTML = "<p>Nada foi encontrado na base de dados. Digite a sua busca pelo atleta ou esporte.</p>";
+    return; // Interrompe a função
   }
-  //transformando o valor da variável campoPesquisa para lowecase, para efeito de comparação
-  campoPesquisa = campoPesquisa.toLowerCase();
 
-  //Declarando variáveis para manipular dentro do laço FOR
+  // Inicializa uma string vazia para armazenar os resultados da pesquisa
   let resultado = "";
-  let titulo = "";
-  let descricao = "";
-  let tags = "";
-  for(let atleta of atletas){
-    titulo = atleta.titulo.toLowerCase();
-    descricao = atleta.descricao.toLowerCase();
-    tags = atleta.tags.toLowerCase();
 
-    if(titulo.includes(campoPesquisa) || descricao.includes(campoPesquisa) || tags.includes(campoPesquisa)){
+  // Itera sobre cada atleta na lista de atletas
+  for (let atleta of atletas) {
+    // Converte os dados do atleta para minúsculas para otimizar a comparação
+    let titulo = atleta.titulo.toLowerCase();
+    let descricao = atleta.descricao.toLowerCase();
+    let tags = atleta.tags.toLowerCase();
+
+    // Verifica se o termo de pesquisa está presente no título, descrição ou tags do atleta
+    if (titulo.includes(campoPesquisa) || descricao.includes(campoPesquisa) || tags.includes(campoPesquisa)) {
+      // Se o atleta corresponder à pesquisa, adiciona um novo elemento HTML à string de resultados
       resultado += `
-      <div class="item-resultado">
-        <h2>${atleta.titulo}</h2>
-        <p class="descricao-meta">${atleta.descricao}</p>
-        <a href="${atleta.link}" target="_blank">Saiba mais sobre ${atleta.titulo}.</a>
-      </div>
-      `
+        <div class="item-resultado">
+          <h2>${atleta.titulo}</h2>
+          <p class="descricao-meta">${atleta.descricao}</p>
+          <a href="${atleta.link}" target="_blank">Saiba mais sobre ${atleta.titulo}.</a>
+        </div>
+      `;
     }
   }
 
-  //Verifica se não há valor como resultado e retorna uma mensagem ao usuário.
-  if(!resultado){
-    resultado = "<p>Nada foi encontrado na base de dados. Tente outro.</p>"
+  // Verifica se nenhum resultado foi encontrado
+  if (!resultado) {
+    // Se nenhum resultado foi encontrado, exibe uma mensagem de erro na seção de resultados
+    resultado = "<p>Nada foi encontrado na base de dados. Tente outro.</p>";
   }
-  section.innerHTML = resultado;
 
+  // Atualiza o conteúdo da seção de resultados com os resultados da pesquisa
+  section.innerHTML = resultado;
 }

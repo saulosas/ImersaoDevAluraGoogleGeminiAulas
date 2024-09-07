@@ -1,3 +1,4 @@
+//Base de dados criada para o projeto
 let atletas = [{
     titulo : "Rayssa Leal",
     descricao : "Rayssa Leal: A fadinha do skate brasileiro\nRayssa Leal, conhecida como Fadinha, é uma skatista brasileira que conquistou o mundo com seu talento precoce. Aos 11 anos, ela já é considerada uma das maiores skatistas de todos os tempos.\n",
